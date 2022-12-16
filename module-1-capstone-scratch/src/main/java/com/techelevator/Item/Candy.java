@@ -8,6 +8,6 @@ public class Candy extends Item {
     @Override
     public String sound() {
 //        sounds for all types here, with if statements?
-        return null;
+        return "Munch Munch, Yum!";
     }
 }

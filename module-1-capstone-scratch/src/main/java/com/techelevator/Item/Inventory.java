@@ -26,13 +26,43 @@ public class Inventory {
                 slotID = itemArray[0];
                 name = itemArray[1];
                 price = Double.parseDouble(itemArray[2]);
+                type = itemArray[3];
 
+                if (type.equals("Chip")) {
+                    itemInventory.put(slotID, new Chip(name, price));
+                }
+                if (type.equals("Candy")) {
+                    itemInventory.put(slotID, new Candy(name, price));
+                }
+                if (type.equals("Drink")) {
+                    itemInventory.put(slotID, new Drink(name, price));
+                }
+                if (type.equals("Gum")) {
+                    itemInventory.put(slotID, new Gum(name, price));
+                }
 
             }
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
+        return itemInventory;
     }
+
+    public void choices() {
+        String name;
+        String slotID;
+        double price;
+        int itemStock;
+
+        for (Map.Entry<String, Item> item : itemInventory.entrySet()) {
+            slotID = item.getKey();
+            name = item.getValue().getName();
+            price = item.getValue().getPrice();
+            itemStock = item.getValue().getStock();
+
+            System.out.printf("%s %s %s %s $%,.2f  %s %d\\n", slotID, " -- ", name, " -- ", price, "-- Stock left:", itemStock);
+        }
+    }
+
 }
