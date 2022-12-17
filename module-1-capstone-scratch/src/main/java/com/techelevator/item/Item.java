@@ -1,4 +1,4 @@
-package com.techelevator.Item;
+package com.techelevator.item;
 
 // Parent class for all items in vending machine, child classes will extend this class and override the sound method
 public abstract class Item {

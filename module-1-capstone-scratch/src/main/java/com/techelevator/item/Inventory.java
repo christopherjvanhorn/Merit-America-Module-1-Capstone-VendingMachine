@@ -1,4 +1,4 @@
-package com.techelevator.Item;
+package com.techelevator.item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,10 +49,10 @@ public class Inventory {
         return itemInventory;
     }
 
-    public void choices() {
-        String name;
-        String slotID;
-        double price;
+    public void displayCurrentInventory() {
+        name = "";
+        slotID = "";
+        price = 0.00;
         int itemStock;
 
         for (Map.Entry<String, Item> item : itemInventory.entrySet()) {
@@ -61,7 +61,8 @@ public class Inventory {
             price = item.getValue().getPrice();
             itemStock = item.getValue().getStock();
 
-            System.out.printf("%s %s %s %s $%,.2f  %s %d\\n", slotID, " -- ", name, " -- ", price, "-- Stock left:", itemStock);
+            //System.out.printf("%s %s %-19s %s $%,.2f  %s %d\n", slotID, " -- ", name, "-- ", price, "-- Stock Remaining:", itemStock);
+            System.out.printf("%s %s %-19s $%,.2f  %s %d\n", slotID, "-", name, price, "Stock Remaining:", itemStock);
         }
     }
 

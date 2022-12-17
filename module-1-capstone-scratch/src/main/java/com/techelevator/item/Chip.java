@@ -1,4 +1,4 @@
-package com.techelevator.Item;
+package com.techelevator.item;
 
 public class Chip extends Item {
     public Chip(String name, double price) {
