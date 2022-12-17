@@ -18,7 +18,7 @@ public class PurchaseMenu {
     private final String[] FEED_MONEY_OPTIONS = {ONE_DOLLAR, FIVE_DOLLARS, TEN_DOLLARS, DONE_FEEDING_MONEY};
     private boolean addMoreMoney;
     double balance = 0.00;
-    Menu menu = new Menu();
+//    Menu menu = new Menu();
     public double getBalance() {
         return balance;
     }
@@ -29,7 +29,7 @@ public class PurchaseMenu {
 
     public void displayPurchaseMenu() {
         System.out.printf("%s %.2f \n \n", "Current Money Provided: $", getBalance());
-        int purchaseMenuChoice = (int) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+ //       int purchaseMenuChoice = (int) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
 
     }
