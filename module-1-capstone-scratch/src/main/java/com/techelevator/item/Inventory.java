@@ -14,7 +14,7 @@ public class Inventory {
     private String slotID = "";
     private String type = "";
     private String[] itemArray;
-    private Map<String, Item> itemInventory = new TreeMap<>(); // Maintain order <slotID, Item Object>
+    Map<String, Item> itemInventory = new TreeMap<>(); // Maintain order <slotID, Item Object>
 
     //if you get "file does not exist" error, change the below string value to the Absolute Path on your device.
     private String filePath = "vendingmachine.csv";

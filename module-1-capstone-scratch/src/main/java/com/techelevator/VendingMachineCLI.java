@@ -13,15 +13,15 @@ public class VendingMachineCLI {
 
 
 	private Menu menu;
-	public static Inventory allItems = new Inventory();
-	private Purchase purchase = new Purchase();
+
+	Purchase purchase = new Purchase();
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 
 	public void run() {
-		allItems.itemMenu();
+		purchase.allItems;
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 

@@ -1,9 +1,13 @@
 package com.techelevator.transaction;
 
 import com.techelevator.VendingMachineCLI;
+import com.techelevator.item.Inventory;
+import com.techelevator.item.Item;
 import com.techelevator.view.Menu;
 
-import static com.techelevator.VendingMachineCLI.allItems;
+import java.util.Map;
+
+
 
 
 public class Purchase {
@@ -11,7 +15,8 @@ public class Purchase {
     private final String SELECT_PRODUCT = "Select Product";
     private final String FINISH_TRANSACTION = "Finish Transaction";
     private final String[] PURCHASE_MENU_OPTIONS = {FEED_MONEY, SELECT_PRODUCT, FINISH_TRANSACTION};
-
+    Inventory inventoryObject = new Inventory();
+    private Map<String, Item> allItems = inventoryObject.itemMenu();
     private Balance balance = new Balance();
 
     private double remainingBalance;
@@ -20,21 +25,18 @@ public class Purchase {
         while (true) {
             System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", balance.getBalance());
             String purchaseMenuChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-            if (purchaseMenuChoice.equals(FEED_MONEY)) {
-                // take money(feed)
+            if (purchaseMenuChoice.equals(FEED_MONEY)) {  // take money(feed)
                 balance.displayBalanceMenu(menu);
-            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {
-                // check if customer deposited money first
-                if (balance.getBalance() > 0) {
-                    //show list, ask select item, do purchase item, & do dispense item
+            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {  // check if customer deposited money first
+                if (balance.getBalance() > 0) {  //show list, ask select item, do purchase item, & do dispense item
                     allItems.displayCurrentInventory();
                     dispenseSelectedItem(menu.itemSelectionFromUser());
                 } else {
                     System.out.println("\nYour current balance is zero. Please insert money before selecting this option.");
                 }
-            } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {
-                // give change
-                // break;
+            } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {  // give change & break
+
+                break;
             }
         }
     }
@@ -42,21 +44,21 @@ public class Purchase {
     public void dispenseSelectedItem (String selectedItemID) {
         //created variables for readability
         boolean isValidChoice = allItems.itemMenu().containsKey(selectedItemID);
-        int inStock = allItems.itemMenu().get(selectedItemID).getStock();
-        double currentBalance = balance.getBalance();
-        double itemPrice = allItems.itemMenu().get(selectedItemID).getPrice();
-        String itemName = allItems.itemMenu().get(selectedItemID).getName();
-        String itemSound = allItems.itemMenu().get(selectedItemID).sound();
-        remainingBalance = currentBalance - itemPrice;
 
         // check if choice is valid, item is in stock, & the customer has enough money inserted for item
         if (isValidChoice) {
+            int inStock = allItems.itemMenu().get(selectedItemID).getStock();
+            double currentBalance = balance.getBalance();
+            double itemPrice = allItems.itemMenu().get(selectedItemID).getPrice();
+            String itemName = allItems.itemMenu().get(selectedItemID).getName();
+            String itemSound = allItems.itemMenu().get(selectedItemID).sound();
+            remainingBalance = currentBalance - itemPrice;
             if (inStock > 0) {
                 if (itemPrice <= currentBalance) {
                     // dispense item, charge customer's balance, adjust inventory, & thank them for their purchase
                     System.out.printf("\n%s %s\n%s $%.2f\n%s $%.2f\n%s\n", "Enjoy your", itemName, "Item Cost:", itemPrice, "Remaining Balance:", remainingBalance, itemSound);
                     balance.setBalance(remainingBalance);
-                    allItems.itemMenu().get(selectedItemID).setStock(inStock-1);
+                    allItems.itemMenu().get(selectedItemID).reduceStock();
                     System.out.println("Thank you for your purchase. Enjoy!");
                 } else {
                     System.out.println("Please insert more money to purchase this item.");
