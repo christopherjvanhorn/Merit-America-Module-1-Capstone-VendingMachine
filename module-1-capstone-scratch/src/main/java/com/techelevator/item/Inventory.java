@@ -21,8 +21,9 @@ public class Inventory {
         File inventoryFile = new File(filePath);
         try (Scanner scanner = new Scanner(inventoryFile)) {
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                itemArray = line.split(Pattern.quote("|"));
+                //String line = scanner.nextLine();                 //combined two lines to make 1, kept old code until tested
+                //itemArray = line.split(Pattern.quote("|"));       //combined two lines to make 1, kept old code until tested
+                itemArray = scanner.nextLine().split(Pattern.quote("|"));
                 slotID = itemArray[0];
                 name = itemArray[1];
                 price = Double.parseDouble(itemArray[2]);
@@ -40,9 +41,7 @@ public class Inventory {
                 if (type.equals("Gum")) {
                     itemInventory.put(slotID, new Gum(name, price));
                 }
-
             }
-
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -54,15 +53,17 @@ public class Inventory {
         slotID = "";
         price = 0.00;
         int itemStock;
-
+        System.out.println();
         for (Map.Entry<String, Item> item : itemInventory.entrySet()) {
             slotID = item.getKey();
             name = item.getValue().getName();
             price = item.getValue().getPrice();
             itemStock = item.getValue().getStock();
-
-            //System.out.printf("%s %s %-19s %s $%,.2f  %s %d\n", slotID, " -- ", name, "-- ", price, "-- Stock Remaining:", itemStock);
-            System.out.printf("%s %s %-19s $%,.2f  %s %d\n", slotID, "-", name, price, "Stock Remaining:", itemStock);
+            if (itemStock > 0) {
+                System.out.printf("%s %s %-19s $%.2f %s %d\n", slotID, "-", name, price, "- Stock Remaining:", itemStock);
+            } else {
+                System.out.printf("%s %s %-19s $%.2f %s\n", slotID, "-", name, price, "- SOLD OUT");
+            }
         }
     }
 

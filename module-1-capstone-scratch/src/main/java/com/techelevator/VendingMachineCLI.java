@@ -1,7 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.item.Inventory;
-import com.techelevator.transaction.PurchaseMenu;
+import com.techelevator.transaction.Purchase;
 import com.techelevator.view.Menu;
 
 public class VendingMachineCLI {
@@ -13,8 +13,8 @@ public class VendingMachineCLI {
 
 
 	private Menu menu;
-	private Inventory showAllItems = new Inventory();
-	private PurchaseMenu purchaseMenu = new PurchaseMenu();
+	public static Inventory allItems = new Inventory();
+	private Purchase purchase = new Purchase();
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -25,17 +25,15 @@ public class VendingMachineCLI {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// build item menu
-				showAllItems.itemMenu();
-				// display vending machine items
-				showAllItems.displayCurrentInventory();
+				// build item menu & display vending machine items
+				allItems.itemMenu();
+				allItems.displayCurrentInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// show purchase menu
-				purchaseMenu.displayPurchaseMenu();
-				// user select option; options below
-				// take money(feed)
-				// select item
-				// do purchase
+				// show purchase menu, where all purchase related tasks are handled
+				purchase.displayPurchaseMenu(menu);
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
+				// say goodbye
+				// break
 			}
 		}
 	}
