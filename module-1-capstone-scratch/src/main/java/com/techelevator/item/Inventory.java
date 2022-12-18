@@ -21,8 +21,6 @@ public class Inventory {
         File inventoryFile = new File(filePath);
         try (Scanner scanner = new Scanner(inventoryFile)) {
             while (scanner.hasNextLine()) {
-                //String line = scanner.nextLine();                 //combined two lines to make 1, kept old code until tested
-                //itemArray = line.split(Pattern.quote("|"));       //combined two lines to make 1, kept old code until tested
                 itemArray = scanner.nextLine().split(Pattern.quote("|"));
                 slotID = itemArray[0];
                 name = itemArray[1];

@@ -21,19 +21,16 @@ public class VendingMachineCLI {
 	}
 
 	public void run() {
+		allItems.itemMenu();
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
-			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// build item menu & display vending machine items
-				allItems.itemMenu();
+			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { // build item menu & display vending machine items
 				allItems.displayCurrentInventory();
-			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// show purchase menu, where all purchase related tasks are handled
+			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) { // show purchase menu, where all purchase related tasks are handled
 				purchase.displayPurchaseMenu(menu);
-			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
-				// say goodbye
-				// break
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){ // say goodbye & break
+
 			}
 		}
 	}
