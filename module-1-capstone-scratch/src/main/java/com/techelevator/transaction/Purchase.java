@@ -11,35 +11,14 @@ import java.util.Map;
 
 
 public class Purchase {
-    private final String FEED_MONEY = "Feed Money";
-    private final String SELECT_PRODUCT = "Select Product";
-    private final String FINISH_TRANSACTION = "Finish Transaction";
-    private final String[] PURCHASE_MENU_OPTIONS = {FEED_MONEY, SELECT_PRODUCT, FINISH_TRANSACTION};
+
     Inventory inventoryObject = new Inventory();
     private Map<String, Item> allItems = inventoryObject.itemMenu();
     private Balance balance = new Balance();
 
     private double remainingBalance;
 
-    public void displayPurchaseMenu(Menu menu) {
-        while (true) {
-            System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", balance.getBalance());
-            String purchaseMenuChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-            if (purchaseMenuChoice.equals(FEED_MONEY)) {  // take money(feed)
-                balance.displayBalanceMenu(menu);
-            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {  // check if customer deposited money first
-                if (balance.getBalance() > 0) {  //show list, ask select item, do purchase item, & do dispense item
-                    allItems.displayCurrentInventory();
-                    dispenseSelectedItem(menu.itemSelectionFromUser());
-                } else {
-                    System.out.println("\nYour current balance is zero. Please insert money before selecting this option.");
-                }
-            } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {  // give change & break
 
-                break;
-            }
-        }
-    }
 
     public void dispenseSelectedItem (String selectedItemID) {
         //created variables for readability
