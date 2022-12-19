@@ -56,8 +56,10 @@ public class CLIMenus {
                 }
             } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {  // give change & break
                 // give change, when method created XD
+                operations.change();
                 break;
             }
+
         }
     }
 

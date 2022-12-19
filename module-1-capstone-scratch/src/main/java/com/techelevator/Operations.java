@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class Operations {
 
-    Menu menu;
+    Menu menu = new Menu(System.in, System.out);
     Inventory currentInventory = new Inventory();
     private Map<String, Item> itemMenuMap = new TreeMap<>(currentInventory.buildItemMenu());
     private double balance = 0.00;
@@ -83,6 +83,27 @@ public class Operations {
 
     }
 
+    public void change() {
+        double change = getBalance() * 100;
+        int quarter = 0;
+        int nickel = 0;
+        int dime = 0;
 
-
+        while (change > 0) { //Runs a loop which determines how many of each coin is used by subtracting the values of the largest first and continuing until 0.
+            if (change >= 25) {
+                change -= 25;
+                quarter++;
+            } else if (change >= 10) {
+                change -= 10;
+                dime++;
+            } else if (change >= 5) {
+                change -= 5;
+                nickel++;
+            }
+        }
+        System.out.println("Change given:");
+        System.out.printf("Number of Quarters: %3d  %n", quarter);
+        System.out.printf("Number of Dimes: %6d  %n", dime);
+        System.out.printf("Number of Nickels: %4d  %n", nickel);
+    }
 }
