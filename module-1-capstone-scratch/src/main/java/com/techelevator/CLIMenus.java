@@ -1,6 +1,5 @@
 package com.techelevator;
 
-import com.techelevator.transaction.Purchase;
 import com.techelevator.view.Menu;
 
 public class CLIMenus {
@@ -20,9 +19,7 @@ public class CLIMenus {
 
     //create objects to handle stuff
     private Menu menu;
-    Purchase purchase = new Purchase();
-
-
+    Operations operations = new Operations();
 
     public CLIMenus(Menu menu) {
         this.menu = menu;
@@ -33,48 +30,57 @@ public class CLIMenus {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
             if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { // build item menu & display vending machine items
-                allItems.displayCurrentInventory();
+                operations.getCurrentInventory().displayCurrentInventory();
             } else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) { // show purchase menu, where all purchase related tasks are handled
-                purchase.displayPurchaseMenu(menu);
+                displayPurchaseMenu(menu);
             } else if (choice.equals(MAIN_MENU_OPTION_EXIT)){ // say goodbye & break
-
+                System.out.println("Thank you for visiting our Vending Machine application, we hope to see you soon!");
+                break;
             }
         }
     }
 
     public void displayPurchaseMenu(Menu menu) {
         while (true) {
-            System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", balance.getBalance());
+            System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", operations.getBalance());
+
             String purchaseMenuChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-            if (purchaseMenuChoice.equals(FEED_MONEY)) {  // take money(feed)
-                balance.displayBalanceMenu(menu);
-            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {  // check if customer deposited money first
-                if (balance.getBalance() > 0) {  //show list, ask select item, do purchase item, & do dispense item
-                    allItems.displayCurrentInventory();
-                    dispenseSelectedItem(menu.itemSelectionFromUser());
+
+            if (purchaseMenuChoice.equals(FEED_MONEY)) {                // take money(feed)
+                displayDepositMenu(menu);
+            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {     // check if customer deposited money first
+                if (operations.getBalance() > 0) {                      //show list, ask select item, do purchase item, & do dispense item
+                    operations.selectItemChoice();
                 } else {
                     System.out.println("\nYour current balance is zero. Please insert money before selecting this option.");
                 }
             } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {  // give change & break
-
+                // give change, when method created XD
                 break;
             }
         }
     }
 
-    public void displayBalanceMenu (Menu menu) {
+    public void displayDepositMenu (Menu menu) {
         while (true) {
-            System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", balance);
-            String balanceChoice = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
-            if (balanceChoice.equals(ONE_DOLLAR)) {
-                balance += 1;
-            } else if (balanceChoice.equals(FIVE_DOLLARS)) {
-                balance += 5;
-            } else if (balanceChoice.equals(TEN_DOLLARS)) {
-                balance += 10;
-            } else if (balanceChoice.equals(DONE_FEEDING_MONEY)) {
+            System.out.printf("\n%s $%.2f \n", "Current Money Provided: ", operations.getBalance());
+
+            String depositChoice = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
+
+            if (depositChoice.equals(ONE_DOLLAR)) {
+                operations.addToBalance(1);
+            } else if (depositChoice.equals(FIVE_DOLLARS)) {
+                operations.addToBalance(5);
+            } else if (depositChoice.equals(TEN_DOLLARS)) {
+                operations.addToBalance(10);
+            } else if (depositChoice.equals(DONE_FEEDING_MONEY)) {
                 break;
             }
         }
     }
+
+
+
+
+
 }

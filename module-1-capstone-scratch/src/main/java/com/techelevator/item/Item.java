@@ -6,13 +6,12 @@ public abstract class Item {
     private double price;
     private int stock = 5;
 
-
     public Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
     public void reduceStock () {
-        this.stock--;
+        stock--;
     }
     public String getName() {
         return name;

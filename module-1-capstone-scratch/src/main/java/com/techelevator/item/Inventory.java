@@ -19,7 +19,7 @@ public class Inventory {
     //if you get "file does not exist" error, change the below string value to the Absolute Path on your device.
     private String filePath = "vendingmachine.csv";
 
-    public Map<String, Item> itemMenu() {
+    public Map<String, Item> buildItemMenu() {
         File inventoryFile = new File(filePath);
         try (Scanner scanner = new Scanner(inventoryFile)) {
             while (scanner.hasNextLine()) {
@@ -49,11 +49,9 @@ public class Inventory {
     }
 
     public void displayCurrentInventory() {
-        name = "";
-        slotID = "";
-        price = 0.00;
         int itemStock;
         System.out.println();
+
         for (Map.Entry<String, Item> item : itemInventory.entrySet()) {
             slotID = item.getKey();
             name = item.getValue().getName();

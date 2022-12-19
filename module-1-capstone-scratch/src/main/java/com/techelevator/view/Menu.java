@@ -53,7 +53,6 @@ public class Menu {
 
 	public String itemSelectionFromUser() {
 		System.out.print("\nPlease choose an option >>> ");
-		//String itemChoice = in.nextLine().toUpperCase();
 		return in.nextLine().toUpperCase();
 	}
 }
