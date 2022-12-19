@@ -46,15 +46,15 @@ public class CLIMenus {
 
             String purchaseMenuChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
-            if (purchaseMenuChoice.equals(FEED_MONEY)) {                // take money(feed)
+            if (purchaseMenuChoice.equals(FEED_MONEY)) {
                 displayDepositMenu(menu);
-            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {     // check if customer deposited money first
-                if (operations.getBalance() > 0) {                      //show list, ask select item, do purchase item, & do dispense item
+            } else if (purchaseMenuChoice.equals(SELECT_PRODUCT)) {
+                if (operations.getBalance() > 0) {
                     operations.selectItemChoice();
                 } else {
                     System.out.println("\nYour current balance is zero. Please insert money before selecting this option.");
                 }
-            } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {  // give change & break
+            } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {
                 // give change, when method created XD
                 operations.change();
                 break;
