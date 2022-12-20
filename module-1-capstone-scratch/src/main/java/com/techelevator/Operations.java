@@ -149,7 +149,7 @@ public class Operations {
     }
 
     public void change() {
-        double change = Math.round(getBalance() * 100); //needed to cast to int to prevent infinite loop caused due to number great than zero but less than 1
+        double change = Math.round(getBalance() * 100); //needed to round to prevent infinite loop and incorrect change.
         double initialMoney = getBalance();
         int quarter = 0;
         int nickel = 0;
