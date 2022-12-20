@@ -150,7 +150,7 @@ public class Operations {
     }
 
     public void change() {
-        int change = (int) getBalance() * 100;
+        int change = (int) getBalance() * 100; //had to cast to int to prevent infinite loop caused due to number great than zero but less than 1
         double initialMoney = getBalance();
         int quarter = 0;
         int nickel = 0;
