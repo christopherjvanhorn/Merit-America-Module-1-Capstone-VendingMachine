@@ -169,10 +169,10 @@ public class Operations {
         }
         logMessage = String.format("%s $%.2f $%.2f", "GIVE CHANGE:", initialMoney, getBalance());
         log(logMessage);
-        System.out.println("Change given:");
-        System.out.printf("Number of Quarters: %3d  %n", quarter);
-        System.out.printf("Number of Dimes: %6d  %n", dime);
-        System.out.printf("Number of Nickels: %4d  %n", nickel);
+        System.out.format("Change given: %.2f\n" , getBalance());
+        System.out.printf("Number of Quarters: %3d  \n", quarter);
+        System.out.printf("Number of Dimes: %6d  \n", dime);
+        System.out.printf("Number of Nickels: %4d  \n", nickel);
         setBalance(0);
         setNumberOfQuarters(quarter);
         setNumberOfDimes(dime);
