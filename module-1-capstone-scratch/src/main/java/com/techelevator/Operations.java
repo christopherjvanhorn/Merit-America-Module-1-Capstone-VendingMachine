@@ -149,13 +149,13 @@ public class Operations {
     }
 
     public void change() {
-        double change = getBalance() * 100; //needed to cast to int to prevent infinite loop caused due to number great than zero but less than 1
+        double change = Math.round(getBalance() * 100); //needed to cast to int to prevent infinite loop caused due to number great than zero but less than 1
         double initialMoney = getBalance();
         int quarter = 0;
         int nickel = 0;
         int dime = 0;
 
-        while (change >= 5) { //Runs a loop which determines how many of each coin is used by subtracting the values of the largest first and continuing until 0.
+        while (change > 0) { //Runs a loop which determines how many of each coin is used by subtracting the values of the largest first and continuing until 0.
             if (change >= 25) {
                 change -= 25;
                 quarter++;
