@@ -17,7 +17,6 @@ public class CLIMenus {
     private final String DONE_FEEDING_MONEY = "Return to the Purchase Menu";
     private final String[] FEED_MONEY_OPTIONS = {ONE_DOLLAR, FIVE_DOLLARS, TEN_DOLLARS, DONE_FEEDING_MONEY};
 
-    //create objects to handle stuff
     private Menu menu;
     Operations operations = new Operations();
 
@@ -25,6 +24,8 @@ public class CLIMenus {
         this.menu = menu;
     }
 
+    // Moved the run() method here to house all menus in the same location.
+    // This assists in minimal objects to be created.
     public void run() {
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
@@ -55,7 +56,6 @@ public class CLIMenus {
                     System.out.println("\nYour current balance is zero. Please insert money before selecting this option.");
                 }
             } else if (purchaseMenuChoice.equals(FINISH_TRANSACTION)) {
-                // give change, when method created XD
                 operations.change();
                 break;
             }

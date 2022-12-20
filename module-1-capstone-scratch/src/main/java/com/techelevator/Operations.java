@@ -39,44 +39,41 @@ public class Operations {
     public double getBalance() {
         return balance;
     }
-
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    // The 6 methods below were created to assist with unit testing of the change() method.
     public int getNumberOfQuarters() {
         return numberOfQuarters;
     }
-
     public void setNumberOfQuarters(int numberOfQuarters) {
         this.numberOfQuarters = numberOfQuarters;
     }
-
     public int getNumberOfDimes() {
         return numberOfDimes;
     }
-
     public void setNumberOfDimes(int numberOfDimes) {
         this.numberOfDimes = numberOfDimes;
     }
-
     public int getNumberOfNickels() {
         return numberOfNickels;
     }
-
     public void setNumberOfNickels(int numberOfNickels) {
         this.numberOfNickels = numberOfNickels;
     }
 
     public double addToBalance(double deposit) {
-
         double newBalance = getBalance() + deposit;
         setBalance(newBalance);
         logMessage = String.format("%s $%.2f $%.2f", "FEED MONEY:", deposit, newBalance);
         log(logMessage);
-
         return getBalance();
     }
 
+    // In the below method we utilize helper methods to assist with
+    // item validity, check its remaining stock, and verify
+    // the customer has deposited enough for the transaction.
     public void selectItemChoice() {
         getCurrentInventory().displayCurrentInventory();
         String userChoice = menu.itemSelectionFromUser();
@@ -100,11 +97,13 @@ public class Operations {
         return false;
     }
 
+    // The method below was created to allow the use of the getStock() method within the selectItemChoice() method.
     public Item validItemDetails(String userChoice) {
         return this.itemMenuMap.get(userChoice);
     }
 
-    // possiblely not touching itemMenuMap
+    //The below method does all the heavy lifting with regarding the purchase of items.
+    // It changes the balance, the stock, and adds the information to the log.
     public int itemDispenser(String itemKey, Item userChoice) {
         String itemName = userChoice.getName();
         String itemSound = userChoice.sound();
@@ -127,13 +126,13 @@ public class Operations {
         return this.itemMenuMap.get(itemKey).getStock();
     }
 
-    //todo below method created to test above method output, ensure to update below if you update above
+    //todo READ: The below method created to test above method output, ensure to update below if you update above
     public String itemDispenserOutput(Item userChoice) {
         String itemName = userChoice.getName();
         String itemSound = userChoice.sound();
         double itemPrice = userChoice.getPrice();
         String output = "";
-        // if (getBalance() >= itemPrice) {
+//      if (getBalance() >= itemPrice) {
         double remainingBalance = getBalance();
         output = String.format("\n%s %s\n%s $%.2f\n%s $%.2f\n%s\n", "Enjoy your", itemName, "Item Cost:", itemPrice, "Remaining Balance:", remainingBalance, itemSound);
         return output;
@@ -143,14 +142,14 @@ public class Operations {
 //            log(logMessage);
 //            System.out.println("Thank you for your purchase. Enjoy!");
 
-        //  } else {
-        //     System.out.println("Please insert more money to purchase this item.");
-    //}
-    //return output;
+//  } else {
+//           System.out.println("Please insert more money to purchase this item.");
+//  }
+//  return output;
     }
 
     public void change() {
-        int change = (int) getBalance() * 100; //had to cast to int to prevent infinite loop caused due to number great than zero but less than 1
+        int change = (int) getBalance() * 100; //needed to cast to int to prevent infinite loop caused due to number great than zero but less than 1
         double initialMoney = getBalance();
         int quarter = 0;
         int nickel = 0;
