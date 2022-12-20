@@ -150,7 +150,7 @@ public class Operations {
     }
 
     public void change() {
-        double change = getBalance() * 100;
+        int change = (int) getBalance() * 100;
         double initialMoney = getBalance();
         int quarter = 0;
         int nickel = 0;

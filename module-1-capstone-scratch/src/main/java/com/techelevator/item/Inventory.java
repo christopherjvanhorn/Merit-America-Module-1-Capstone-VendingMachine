@@ -17,7 +17,7 @@ public class Inventory {
     Map<String, Item> itemInventory = new TreeMap<>(); // Maintain order <slotID, Item Object>
 
     //if you get "file does not exist" error, change the below string value to the Absolute Path on your device.
-    private String filePath = "C:\\Users\\candi\\meritamerica\\repos\\capstone-1-scratchpaper\\module-1-capstone-scratch\\vendingmachine.csv";
+    private String filePath = "vendingmachine.csv";
 
     public Map<String, Item> buildItemMenu() {
         File inventoryFile = new File(filePath);
