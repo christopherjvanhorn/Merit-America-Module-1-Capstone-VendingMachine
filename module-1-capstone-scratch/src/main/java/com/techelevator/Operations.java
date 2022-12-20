@@ -21,6 +21,10 @@ public class Operations {
     // private double remainingBalance;
     private String logMessage;
 
+    private int numberOfQuarters;
+    private int numberOfDimes;
+    private int numberOfNickels;
+
     public Operations() {
     }
 
@@ -39,15 +43,38 @@ public class Operations {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    public int getNumberOfQuarters() {
+        return numberOfQuarters;
+    }
 
-    public void addToBalance(double deposit) {
+    public void setNumberOfQuarters(int numberOfQuarters) {
+        this.numberOfQuarters = numberOfQuarters;
+    }
+
+    public int getNumberOfDimes() {
+        return numberOfDimes;
+    }
+
+    public void setNumberOfDimes(int numberOfDimes) {
+        this.numberOfDimes = numberOfDimes;
+    }
+
+    public int getNumberOfNickels() {
+        return numberOfNickels;
+    }
+
+    public void setNumberOfNickels(int numberOfNickels) {
+        this.numberOfNickels = numberOfNickels;
+    }
+
+    public double addToBalance(double deposit) {
 
         double newBalance = getBalance() + deposit;
         setBalance(newBalance);
-        logMessage = String.format("%s $%.2f $%.2f", "FEED MONEY:" , deposit, newBalance);
+        logMessage = String.format("%s $%.2f $%.2f", "FEED MONEY:", deposit, newBalance);
         log(logMessage);
 
-
+        return getBalance();
     }
 
     public void selectItemChoice() {
@@ -55,7 +82,7 @@ public class Operations {
         String userChoice = menu.itemSelectionFromUser();
         if (isValidChoice(userChoice)) {
             if (validItemDetails(userChoice).getStock() > 0) {
-                itemDispenser(validItemDetails(userChoice), userChoice);
+                itemDispenser(userChoice, validItemDetails(userChoice));
             } else {
                 System.out.println("Unfortunately the item you have selected is sold out.\n" +
                         "If you feel this message is an error, please contact Maintenance at ext. 212");
@@ -78,23 +105,48 @@ public class Operations {
     }
 
     // possiblely not touching itemMenuMap
-    public void itemDispenser(Item userChoice, String itemKey) {
+    public int itemDispenser(String itemKey, Item userChoice) {
         String itemName = userChoice.getName();
         String itemSound = userChoice.sound();
         double itemPrice = userChoice.getPrice();
 
         if (getBalance() >= itemPrice) {
             double remainingBalance = getBalance() - itemPrice;
-            System.out.printf("\n%s %s\n%s $%.2f\n%s $%.2f\n%s\n", "Enjoy your", itemName, "Item Cost:", itemPrice, "Remaining Balance:", remainingBalance, itemSound);
+            String output = String.format("\n%s %s\n%s $%.2f\n%s $%.2f\n%s\n", "Enjoy your", itemName, "Item Cost:", itemPrice, "Remaining Balance:", remainingBalance, itemSound);
+            System.out.print(output);
             setBalance(remainingBalance);
             this.itemMenuMap.get(itemKey).reduceStock();
-            logMessage = String.format("%s %s $%.2f $%.2f", itemName , itemKey, itemPrice, getBalance());
+            logMessage = String.format("%s %s $%.2f $%.2f", itemName, itemKey, itemPrice, getBalance());
             log(logMessage);
             System.out.println("Thank you for your purchase. Enjoy!");
+
         } else {
             System.out.println("Please insert more money to purchase this item.");
         }
 
+        return this.itemMenuMap.get(itemKey).getStock();
+    }
+
+    //todo below method created to test above method output, ensure to update below if you update above
+    public String itemDispenserOutput(Item userChoice) {
+        String itemName = userChoice.getName();
+        String itemSound = userChoice.sound();
+        double itemPrice = userChoice.getPrice();
+        String output = "";
+        // if (getBalance() >= itemPrice) {
+        double remainingBalance = getBalance();
+        output = String.format("\n%s %s\n%s $%.2f\n%s $%.2f\n%s\n", "Enjoy your", itemName, "Item Cost:", itemPrice, "Remaining Balance:", remainingBalance, itemSound);
+        return output;
+//            setBalance(remainingBalance);
+//            this.itemMenuMap.get(itemKey).reduceStock();
+//            logMessage = String.format("%s %s $%.2f $%.2f", itemName , itemKey, itemPrice, getBalance());
+//            log(logMessage);
+//            System.out.println("Thank you for your purchase. Enjoy!");
+
+        //  } else {
+        //     System.out.println("Please insert more money to purchase this item.");
+    //}
+    //return output;
     }
 
     public void change() {
@@ -117,7 +169,9 @@ public class Operations {
             }
         }
         setBalance(0);
-        //add log method here when finished
+        setNumberOfQuarters(quarter);
+        setNumberOfDimes(dime);
+        setNumberOfNickels(nickel);
         logMessage = String.format("%s $%.2f $%.2f", "GIVE CHANGE:", initialMoney, getBalance());
         log(logMessage);
         System.out.println("Change given:");

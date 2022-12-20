@@ -11,7 +11,9 @@ public abstract class Item {
         this.price = price;
     }
     public void reduceStock () {
-        stock--;
+        if(stock > 0) {
+            stock--;
+        }
     }
     public String getName() {
         return name;
